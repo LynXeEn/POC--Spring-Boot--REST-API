@@ -29,6 +29,15 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
+    @GetMapping("/byAuthor")
+    public ResponseEntity<List<Book>> findBooksByAuthor(@RequestParam String author){
+        try {
+            List<Book> books = bookService.getBooksByAuthor(author);
+            return new ResponseEntity<>(books, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PostMapping
     public Book saveBook(@RequestParam String title, @RequestParam String author){
